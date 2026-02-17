@@ -1,3 +1,5 @@
 Logs/
 wz/
 *.ini
+build/
+dist/MapleStory.jar
