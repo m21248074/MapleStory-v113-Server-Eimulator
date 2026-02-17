@@ -65,7 +65,7 @@ import tools.ConcurrentEnumMap;
 
 public class ChannelServer implements Serializable {
 
-    private static ServerConnection init;
+    private ServerConnection init;
     public static long serverStartTime;
     private int expRate, mesoRate, dropRate, cashRate;
     private short port = 8585;

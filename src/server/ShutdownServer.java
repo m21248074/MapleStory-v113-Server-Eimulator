@@ -48,7 +48,7 @@ public class ShutdownServer implements Runnable {
                     e.printStackTrace();
                 }
             }
-//            CashShopServer.shutdown();
+            CashShopServer.shutdown();
             World.Guild.save();
             World.Alliance.save();
             World.Family.save();
@@ -56,20 +56,22 @@ public class ShutdownServer implements Runnable {
         } catch (SQLException e) {
             System.err.println("THROW" + e);
         }
+        EventTimer.getInstance().stop();
         WorldTimer.getInstance().stop();
         MapTimer.getInstance().stop();
         MobTimer.getInstance().stop();
         BuffTimer.getInstance().stop();
         CloneTimer.getInstance().stop();
-        EventTimer.getInstance().stop();
+        
         EtcTimer.getInstance().stop();
         PingTimer.getInstance().stop();
 
-        try {
-            Thread.sleep(5000);
-        } catch (Exception e) {
-            //shutdown
-        }
-        System.exit(0); //not sure if this is really needed for ChannelServer
+        running = false;
+        // try {
+        //     Thread.sleep(5000);
+        // } catch (Exception e) {
+        //     //shutdown
+        // }
+        // System.exit(0); //not sure if this is really needed for ChannelServer
     }
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="570.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ui.MainController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="596.0" prefWidth="910.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TabPane prefHeight="547.0" prefWidth="910.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="伺服器">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="910.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" text="伺服端操作">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <HBox layoutX="14.0" layoutY="38.0" prefHeight="64.0" prefWidth="886.0" spacing="10.0">
+                                 <children>
+                                    <Button fx:id="btnStartServer" mnemonicParsing="false" onAction="#handleStartServer" text="啟動伺服端" />
+                                    <Button fx:id="btnStopServer" mnemonicParsing="false" onAction="#handleStopServer" text="關閉伺服端" />
+                                    <Button fx:id="btnRestartServer" mnemonicParsing="false" onAction="#handleRestartServer" text="重新啟動伺服端" />
+                                    <Button mnemonicParsing="false" text="重載腳本" />
+                                 </children>
+                              </HBox>
+                              <Label layoutX="14.0" layoutY="111.0" text="伺服器操作">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="設置">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                  <Tab text="關於">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="347.0" layoutY="53.0" text="楓之谷伺服器控制台">
+                                 <font>
+                                    <Font name="Microsoft JhengHei UI Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="332.0" layoutY="85.0" text="程式介面由 CaveyCoding (m21248074) 編寫)" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+    </AnchorPane>
+      <HBox prefHeight="72.0" prefWidth="640.0" />
+  </children>
+</VBox>

@@ -32,7 +32,7 @@ public class CashShopServer {
 
     private static ServerConnection init;
     private static String ip;
-    private  static int PORT = 8596;
+    private static int PORT = 8596;
     private static PlayerStorage players, playersMTS;
     private static boolean finishedShutdown = false;
 
@@ -44,6 +44,7 @@ public class CashShopServer {
             init.run();
             players = new PlayerStorage(-10);
             playersMTS = new PlayerStorage(-20);
+            finishedShutdown = false;
             System.out.println("CashShop : Listening on port " + PORT);
         } catch (final Exception e) {
             System.err.println("綁定端口 " + PORT + " 失敗");
@@ -73,7 +74,7 @@ public class CashShopServer {
         playersMTS.disconnectAll();
         MTSStorage.getInstance().saveBuyNow(true);
         System.out.println("Shutting down CS...");
-        //acceptor.unbindAll();
+        init.close();
         finishedShutdown = true;
     }
 

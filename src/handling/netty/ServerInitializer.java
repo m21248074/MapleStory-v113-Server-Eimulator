@@ -13,11 +13,11 @@ import handling.MapleServerHandler;
 
 public class ServerInitializer extends ChannelInitializer<SocketChannel> {
 	
-    //private int world;
+    private int world;
     private int channels;
 	
-    public ServerInitializer(int channels) {// int world, 
-        //this.world = world;
+    public ServerInitializer(int world, int channels) {
+        this.world = world;
         this.channels = channels;
     }
 	

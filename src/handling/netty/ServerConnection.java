@@ -46,7 +46,7 @@ public class ServerConnection {
                     .option(ChannelOption.SO_BACKLOG, ServerConstants.MAXIMUM_CONNECTIONS)
                     .childOption(ChannelOption.TCP_NODELAY, true)
                     .childOption(ChannelOption.SO_KEEPALIVE, true)
-                    .childHandler(new ServerInitializer(channels));
+                    .childHandler(new ServerInitializer(world, channels));
             try {
                 channel = boot.bind(port).sync().channel().closeFuture().channel();
             } catch (Exception e) {

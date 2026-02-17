@@ -158,7 +158,7 @@ public abstract class Timer {
     }
 
     public void stop() {
-        ses.shutdown();
+        ses.shutdownNow();
     }
 
     public ScheduledFuture<?> register(Runnable r, long repeatTime, long delay) {
