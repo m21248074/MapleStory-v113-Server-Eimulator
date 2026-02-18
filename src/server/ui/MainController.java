@@ -96,7 +96,7 @@ public class MainController {
                         minutesLeft = 2;
                         return;
                     }
-                    //World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice("伺服器將在" + minutesLeft + " 分鐘後進行停機維護, 請及時安全的下線, 以免造成不必要的損失。"));
+                    World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice("伺服器將在" + minutesLeft + " 分鐘後進行停機維護, 請及時安全的下線, 以免造成不必要的損失。").getBytes());
                     minutesLeft--;
                 }
             }, 5000);

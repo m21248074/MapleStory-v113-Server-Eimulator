@@ -369,6 +369,10 @@ public class MaplePacketCreator {
         return mplew.getPacket();
     }
 
+    public static MaplePacket serverNotice(String message) {
+        return serverMessage(0, 0, message, false);
+    }
+
     public static MaplePacket serverMessage(String message) {
         return serverMessage(4, 0, message, false);
     }
