@@ -1,5 +1,7 @@
 package server.ui;
 
+import java.util.Map;
+import java.util.HashMap;
 import java.util.concurrent.ScheduledFuture;
 
 import javafx.fxml.FXML;
@@ -15,16 +17,18 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import tools.GuiUtils;
+import tools.MaplePacketCreator;
 import server.Start;
 import server.ShutdownServer;
 import server.Timer;
+import server.ServerProperties;
 import scripting.PortalScriptManager;
 import scripting.ReactorScriptManager;
 import handling.MaplePacket;
 import handling.world.World;
 import handling.login.LoginServer;
 import handling.channel.ChannelServer;
-import tools.MaplePacketCreator;
+import database.DatabaseConnection;
 
 public class MainController {
 
@@ -50,6 +54,17 @@ public class MainController {
     @FXML
     private Button btnToggleChatLog;
 
+    @FXML
+    private TextField dbipTextField;
+    @FXML
+    private TextField dbportTextField;
+    @FXML
+    private TextField dbuserTextField;
+    @FXML
+    private TextField dbpassTextField;
+    @FXML
+    private TextField dbnameTextField;
+
     // @FXML
     // private Label lblStatus;
 
@@ -60,6 +75,7 @@ public class MainController {
         btnStartServer.disableProperty().bind(isServerRunning);
         btnStopServer.disableProperty().bind(isServerRunning.not());
         btnRestartServer.disableProperty().bind(isServerRunning.not());
+        resetSettings(false);
     }
 
     @FXML
@@ -116,6 +132,21 @@ public class MainController {
     private void handleToggleChatLog(ActionEvent event) {
         writeChatLog = !writeChatLog;
         btnToggleChatLog.setText(writeChatLog ? "關閉訊息輸出" : "開啟訊息輸出");
+    }
+
+    @FXML
+    private void handleCancelChanges(ActionEvent event) {
+        resetSettings(false);
+    }
+
+    @FXML
+    private void handleReadSettingsFile(ActionEvent event) {
+        resetSettings(true);
+    }
+
+    @FXML
+    private void handleSaveAndApplySettings(ActionEvent event) {
+        updateSettings(true);
     }
 
     private void startServer() {
@@ -206,5 +237,29 @@ public class MainController {
         if (writeChatLog) {
             chatLogTextArea.setText(chatLogTextArea.getText() + str + "\r\n");
         }
+    }
+
+    private void resetSettings(boolean read) {
+        if (read)
+            ServerProperties.loadProperties();
+
+        Map<String, String> dbUrlMap = DatabaseConnection.parseDbUrl(ServerProperties.getProperty("tms.Url"));
+        dbipTextField.setText(dbUrlMap.get("ip"));
+        dbportTextField.setText(dbUrlMap.get("port"));
+        dbnameTextField.setText(dbUrlMap.get("dbname"));
+        dbuserTextField.setText(ServerProperties.getProperty("tms.User"));
+        dbpassTextField.setText(ServerProperties.getProperty("tms.Pass"));
+    }
+
+    private void updateSettings(boolean save) {
+        Map<String, String> uiData = new HashMap<>();
+        uiData.put("tms.Url", "jdbc:mysql://" + dbipTextField.getText() + ":" + dbportTextField.getText() + "/" + dbnameTextField.getText() + "?autoReconnect=true&maxReconnects=999&characterEncoding=BIG5");
+        uiData.put("tms.User", dbuserTextField.getText());
+        uiData.put("tms.Pass", dbpassTextField.getText());
+        
+        if (save)
+            ServerProperties.saveProperties(uiData);
+        else
+            ServerProperties.applyProperties(uiData);
     }
 }

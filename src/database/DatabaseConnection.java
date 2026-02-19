@@ -28,6 +28,10 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Properties;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import server.ServerProperties;
 
 /**
@@ -163,5 +167,24 @@ public class DatabaseConnection {
             System.err.println("Error getting db " + databaseName + " table " + tableName + " colName: " + columnName);
         }
         return ret > -1;
+    }
+
+    public static Map<String, String> parseDbUrl(String url) {
+        Map<String, String> result = new HashMap<>();
+        
+        String regex = "jdbc:mysql://([^/:]+):(\\d+)/([^?]+)";
+        
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(url);
+
+        if (matcher.find()) {
+            result.put("ip", matcher.group(1));
+            result.put("port", matcher.group(2));
+            result.put("dbname", matcher.group(3));
+        } else {
+            System.err.println("URL 格式不符合預期");
+        }
+
+        return result;
     }
 }
