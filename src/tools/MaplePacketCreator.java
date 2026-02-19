@@ -373,8 +373,24 @@ public class MaplePacketCreator {
         return serverMessage(0, 0, message, false);
     }
 
+    public static MaplePacket getPopupMsg(String message) {
+        return serverMessage(1, 0, message, false);
+    }
+
     public static MaplePacket serverMessage(String message) {
         return serverMessage(4, 0, message, false);
+    }
+
+    public static MaplePacket getErrorNotice(String message) {
+        return serverMessage(5, 0, message, true);
+    }
+
+    public static MaplePacket getItemNotice(String message) {
+        return getItemNotice(message, 0);
+    }
+
+    public static MaplePacket getItemNotice(String message, int itemId) {
+        return serverMessage(6, itemId, message, true);
     }
 
     public static MaplePacket serverNotice(int type, String message) {

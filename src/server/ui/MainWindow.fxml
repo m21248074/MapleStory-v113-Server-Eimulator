@@ -36,8 +36,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -61,7 +64,7 @@
                                     <Button fx:id="btnStartServer" mnemonicParsing="false" onAction="#handleStartServer" text="啟動伺服端" />
                                     <Button fx:id="btnStopServer" mnemonicParsing="false" onAction="#handleStopServer" text="關閉伺服端" />
                                     <Button fx:id="btnRestartServer" mnemonicParsing="false" onAction="#handleRestartServer" text="重新啟動伺服端" />
-                                    <Button mnemonicParsing="false" text="重載腳本" />
+                                    <Button mnemonicParsing="false" onAction="#handleReloadScript" text="重載腳本" />
                                  </children>
                               </HBox>
                               <Label layoutX="14.0" layoutY="111.0" text="伺服器操作">
@@ -69,6 +72,33 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
+                              <Pane layoutX="14.0" layoutY="134.0" prefHeight="370.0" prefWidth="878.0" style="-fx-border-width: 1; -fx-border-style: solid; -fx-border-color: gray; -fx-border-radius: 5;">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="14.0" text="發送遊戲公告" />
+                                    <Label layoutX="14.0" layoutY="47.0" text="發送方式" />
+                                    <TextField fx:id="noticeTextField" layoutX="94.0" layoutY="10.0" prefHeight="23.0" prefWidth="766.0" promptText="請輸入欲發出的公告" />
+                                    <HBox layoutX="94.0" layoutY="43.0" prefHeight="23.0" prefWidth="766.0" spacing="10.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleSendNotice" text="公告事件" />
+                                          <Button mnemonicParsing="false" onAction="#handleSendWinNotice" text="視窗公告" />
+                                          <Button mnemonicParsing="false" onAction="#handleSendMsgNotice" text="訊息" />
+                                          <Button mnemonicParsing="false" onAction="#handleSendNpcTalkNotice" text="NPC對話" />
+                                       </children>
+                                    </HBox>
+                                    <Label layoutX="14.0" layoutY="79.0" text="訊息輸出">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="chatLogTextArea" editable="false" layoutX="14.0" layoutY="105.0" prefHeight="259.0" prefWidth="846.0" />
+                                    <HBox layoutX="94.0" layoutY="75.0" prefHeight="23.0" prefWidth="767.0" spacing="15.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleClearChatLog" text="清空訊息輸出" />
+                                          <Button fx:id="btnToggleChatLog" mnemonicParsing="false" onAction="#handleToggleChatLog" text="關閉訊息輸出" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </Pane>
                            </children></AnchorPane>
                   </content>
                 </Tab>
