@@ -55,6 +55,24 @@ public class MainController {
     private Button btnToggleChatLog;
 
     @FXML
+    private TextField flagTextField;
+    @FXML
+    private TextField expTextField;
+    @FXML
+    private TextField mesoTextField;
+    @FXML
+    private TextField dropTextField;
+    @FXML
+    private TextField eventMsgTextField;
+    @FXML
+    private TextField serverMsgTextField;
+    @FXML
+    private TextField channelCountTextField;
+    @FXML
+    private TextField userLimitTextField;
+
+
+    @FXML
     private TextField dbipTextField;
     @FXML
     private TextField dbportTextField;
@@ -243,6 +261,15 @@ public class MainController {
         if (read)
             ServerProperties.loadProperties();
 
+        flagTextField.setText(ServerProperties.getProperty("tms.Flag"));
+        expTextField.setText(ServerProperties.getProperty("tms.Exp"));
+        mesoTextField.setText(ServerProperties.getProperty("tms.Meso"));
+        dropTextField.setText(ServerProperties.getProperty("tms.Drop"));
+        eventMsgTextField.setText(ServerProperties.getProperty("tms.EventMessage"));
+        serverMsgTextField.setText(ServerProperties.getProperty("tms.ServerMessage"));
+        channelCountTextField.setText(ServerProperties.getProperty("tms.Count"));
+        userLimitTextField.setText(ServerProperties.getProperty("tms.UserLimit"));
+
         Map<String, String> dbUrlMap = DatabaseConnection.parseDbUrl(ServerProperties.getProperty("tms.Url"));
         dbipTextField.setText(dbUrlMap.get("ip"));
         dbportTextField.setText(dbUrlMap.get("port"));
@@ -257,6 +284,15 @@ public class MainController {
         uiData.put("tms.User", dbuserTextField.getText());
         uiData.put("tms.Pass", dbpassTextField.getText());
         
+        uiData.put("tms.Flag", flagTextField.getText());
+        uiData.put("tms.Exp", expTextField.getText());
+        uiData.put("tms.Meso", mesoTextField.getText());
+        uiData.put("tms.Drop", dropTextField.getText());
+        uiData.put("tms.EventMessage", eventMsgTextField.getText());
+        uiData.put("tms.ServerMessage", serverMsgTextField.getText());
+        uiData.put("tms.Count", channelCountTextField.getText());
+        uiData.put("tms.UserLimit", userLimitTextField.getText());
+
         if (save)
             ServerProperties.saveProperties(uiData);
         else
