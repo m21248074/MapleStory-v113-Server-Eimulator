@@ -64,6 +64,8 @@ public class LoginWorker {
             } else {
                 c.sendPacket(LoginPacket.getAuthSuccessRequest(c));
                 c.sendPacket(LoginPacket.getServerList(0, LoginServer.getServerName(), LoginServer.getLoad()));
+                for (int i = 1 ; i <= 16 ; i++)
+                    c.sendPacket(LoginPacket.getServerList(i, LoginServer.getServerName(), LoginServer.getLoad()));
                 c.sendPacket(LoginPacket.getEndOfServerList());
             }
             c.setIdleTask(PingTimer.getInstance().schedule(new Runnable() {

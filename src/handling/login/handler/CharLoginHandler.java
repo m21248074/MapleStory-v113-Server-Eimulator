@@ -126,6 +126,8 @@ public class CharLoginHandler {
 
     public static final void ServerListRequest(final MapleClient c) {
         c.sendPacket(LoginPacket.getServerList(0, LoginServer.getServerName(), LoginServer.getLoad()));
+        for (int i = 1 ; i <= 16 ; i++)
+            c.sendPacket(LoginPacket.getServerList(i, LoginServer.getServerName(), LoginServer.getLoad()));
         //c.sendPacket(MaplePacketCreator.getServerList(1, "Scania", LoginServer.getInstance().getChannels(), 1200));
         //c.sendPacket(MaplePacketCreator.getServerList(2, "Scania", LoginServer.getInstance().getChannels(), 1200));
         //c.sendPacket(MaplePacketCreator.getServerList(3, "Scania", LoginServer.getInstance().getChannels(), 1200));
@@ -152,11 +154,13 @@ public class CharLoginHandler {
         final int server = slea.readByte();
         final int channel = slea.readByte() + 1;
 
-        c.setWorld(server);
+        //c.setWorld(server);
+        c.setWorld(0);
         //System.out.println("Client " + c.getSession().getRemoteAddress().toString().split(":")[0] + " is connecting to server " + server + " channel " + channel + "");
         c.setChannel(channel);
 
-        final List<MapleCharacter> chars = c.loadCharacters(server);
+        //final List<MapleCharacter> chars = c.loadCharacters(server);
+        final List<MapleCharacter> chars = c.loadCharacters(0);
         if (chars != null) {
             c.sendPacket(LoginPacket.getCharList(c.getSecondPassword() != null, chars, c.getCharacterSlots()));
         } else {

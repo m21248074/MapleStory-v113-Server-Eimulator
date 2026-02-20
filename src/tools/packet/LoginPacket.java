@@ -32,6 +32,7 @@ import handling.SendPacketOpcode;
 import handling.login.LoginServer;
 import tools.data.output.MaplePacketLittleEndianWriter;
 import tools.HexTool;
+import constants.WorldConstants;
 
 public class LoginPacket {
 
@@ -184,8 +185,10 @@ public class LoginPacket {
 
         mplew.writeShort(SendPacketOpcode.SERVERLIST.getValue());
         mplew.write(serverId); // 0 = Aquilla, 1 = bootes, 2 = cass, 3 = delphinus
-        mplew.writeMapleAsciiString(serverName);
-        mplew.write(LoginServer.getFlag());
+        //mplew.writeMapleAsciiString(serverName);
+        //mplew.write(LoginServer.getFlag());
+        mplew.writeMapleAsciiString(WorldConstants.WorldOption.getById(serverId).name());
+        mplew.write(Math.max(0, LoginServer.getFlag() - (int)(serverId / (16.0 / (LoginServer.getFlag() + 1)))));
         mplew.writeMapleAsciiString(LoginServer.getEventMessage());
         mplew.writeShort(100);
         mplew.writeShort(100);
@@ -207,7 +210,8 @@ public class LoginPacket {
             } else {
                 load = 1200;
             }
-            mplew.writeMapleAsciiString(serverName + "-" + i);
+            //mplew.writeMapleAsciiString(serverName + "-" + i);
+            mplew.writeMapleAsciiString(WorldConstants.WorldOption.getById(serverId).name() + "-" + i);
             mplew.writeInt(load);
             mplew.write(serverId);
             mplew.writeShort(i - 1);
