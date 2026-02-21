@@ -3,3 +3,7 @@ wz/
 *.ini
 build/
 dist/MapleStory.jar
+.idea/
+*.iml
+out/
+target/
