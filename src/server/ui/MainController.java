@@ -1,13 +1,20 @@
 package server.ui;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.concurrent.ScheduledFuture;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
@@ -16,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
+import constants.WorldConstants.WorldOption;
 import tools.GuiUtils;
 import tools.MaplePacketCreator;
 import server.Start;
@@ -54,6 +62,8 @@ public class MainController {
     @FXML
     private Button btnToggleChatLog;
 
+    @FXML
+    private ComboBox<String> worldComboBox;
     @FXML
     private TextField flagTextField;
     @FXML
@@ -94,6 +104,22 @@ public class MainController {
         btnStopServer.disableProperty().bind(isServerRunning.not());
         btnRestartServer.disableProperty().bind(isServerRunning.not());
         resetSettings(false);
+        
+        List<WorldOption> options = Arrays.stream(WorldOption.values())
+                                          .collect(Collectors.toList());
+        Collections.reverse(options);
+
+        ObservableList<String> displayList = FXCollections.observableArrayList();
+        
+        displayList.add("--- 伺服器清單預覽 ---");
+
+        for (WorldOption w : options) {
+            String label = String.format("%s (%d)", w.name(), w.getWorld());
+            displayList.add(label);
+        }
+
+        worldComboBox.setItems(displayList);
+        worldComboBox.getSelectionModel().selectFirst();
     }
 
     @FXML
