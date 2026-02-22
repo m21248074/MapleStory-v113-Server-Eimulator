@@ -40,6 +40,14 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- Source: https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.11.0</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>local.policy</groupId>
             <artifactId>local-policy</artifactId>

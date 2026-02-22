@@ -12,18 +12,14 @@ import javafx.fxml.FXML;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.event.ActionEvent;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import constants.WorldConstants.WorldOption;
+import constants.ServerConstants;
 import tools.GuiUtils;
 import tools.MaplePacketCreator;
 import server.Start;
@@ -81,6 +77,20 @@ public class MainController {
     @FXML
     private TextField userLimitTextField;
 
+    @FXML
+    private TextField versionTextField;
+
+    @FXML
+    private TextField serverNameTextField;
+    @FXML
+    private TextField ipTextField;
+
+    @FXML
+    private RadioButton adminRadioButton;
+    @FXML
+    private RadioButton autoRegisterRadioButton;
+    @FXML
+    private RadioButton debugRadioButton;
 
     @FXML
     private TextField dbipTextField;
@@ -120,6 +130,8 @@ public class MainController {
 
         worldComboBox.setItems(displayList);
         worldComboBox.getSelectionModel().selectFirst();
+
+        versionTextField.setText(ServerConstants.MAPLE_VERSION + "." + ServerConstants.MAPLE_PATCH);
     }
 
     @FXML
@@ -296,6 +308,13 @@ public class MainController {
         channelCountTextField.setText(ServerProperties.getProperty("tms.Count"));
         userLimitTextField.setText(ServerProperties.getProperty("tms.UserLimit"));
 
+        serverNameTextField.setText(ServerProperties.getProperty("tms.ServerName"));
+        ipTextField.setText(ServerProperties.getProperty("tms.IP"));
+
+        adminRadioButton.setSelected(Boolean.parseBoolean(ServerProperties.getProperty("tms.Admin")));
+        autoRegisterRadioButton.setSelected(Boolean.parseBoolean(ServerProperties.getProperty("tms.AutoRegister")));
+        debugRadioButton.setSelected(Boolean.parseBoolean(ServerProperties.getProperty("tms.Debug")));
+
         Map<String, String> dbUrlMap = DatabaseConnection.parseDbUrl(ServerProperties.getProperty("tms.Url"));
         dbipTextField.setText(dbUrlMap.get("ip"));
         dbportTextField.setText(dbUrlMap.get("port"));
@@ -318,6 +337,13 @@ public class MainController {
         uiData.put("tms.ServerMessage", serverMsgTextField.getText());
         uiData.put("tms.Count", channelCountTextField.getText());
         uiData.put("tms.UserLimit", userLimitTextField.getText());
+
+        uiData.put("tms.ServerName", serverNameTextField.getText());
+        uiData.put("tms.IP", ipTextField.getText());
+
+        uiData.put("tms.Admin", String.valueOf(adminRadioButton.isSelected()));
+        uiData.put("tms.AutoRegister", String.valueOf(autoRegisterRadioButton.isSelected()));
+        uiData.put("tms.Debug", String.valueOf(debugRadioButton.isSelected()));
 
         if (save)
             ServerProperties.saveProperties(uiData);
